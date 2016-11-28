@@ -1,0 +1,45 @@
+<!-- View Wrapper -->
+<ion-view title="Books">
+
+  <!-- New Book Button -->
+  <ion-nav-buttons side="right">
+    <button ng-click="books.create()" class="button button-icon ion-plus"></button>
+  </ion-nav-buttons>
+
+  <!-- Content Wrapper -->
+  <ion-content>
+
+    <!-- Search Bar -->
+    <ion-header-bar class="bar item-input-inset">
+
+      <!-- Input Field -->
+      <label class="item-input-wrapper">
+        <i class="icon ion-person-add placeholder-icon"></i>
+        <input ng-model="books.joining" type="text" placeholder="enter book name to join">
+      </label>
+
+      <!-- Join Button -->
+      <button ng-click="books.join()" class="button button-clear">Join</button>
+    </ion-header-bar>
+
+    <!-- No Books Button -->
+    <div ng-if="books.book.length === 0" class="padding">
+      <button ng-click="books.create()" class="button button-block button-stable">No Books? Create One!</button>
+    </div>
+
+    <!-- Book List -->
+    <ion-list>
+
+      <!-- Book Name & Code -->
+      <ion-item ng-repeat="book in books.book" ui-sref="tab.recipes({book: book.bookName})">
+        {{book.bookName}} ({{book.code}})
+
+        <!-- Share Button -->
+        <ion-option-button ng-click="books.share(book)" class="button-positive">Share</ion-option-button>
+
+        <!-- Leave Button -->
+        <ion-option-button ng-click="books.leave(book.bookName)" class="button-assertive">Leave</ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

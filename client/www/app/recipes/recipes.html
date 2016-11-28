@@ -1,0 +1,43 @@
+<!-- View Wrapper -->
+<ion-view title="{{recipes.book}}">
+
+  <!-- Header Buttons -->
+  <ion-nav-buttons side="right">
+
+    <!-- New Recipe Button -->
+    <button ng-if="!recipes.query" ng-click="recipes.create()" class="button button-icon ion-plus"></button>
+
+    <!-- Clear Filter Button -->
+    <button ng-if="recipes.query" ng-click="recipes.query = null" class="button button-icon ion-close"></button>
+  </ion-nav-buttons>
+
+  <!-- Content Wrapper -->
+  <ion-content>
+
+    <!-- No Recipes Button -->
+    <div ng-if="recipes.recipes.length === 0" class="padding">
+      <button ng-click="recipes.create()" class="button button-block button-stable">No Recipes? Create One!</button>
+    </div>
+
+    <!-- Meta Information -->
+    <div ng-repeat="recipe in recipes.recipes | filter: recipes.query" class="list card">
+      <div class="item item-avatar">
+        <img ng-if="recipe.saved" ng-click="recipes.unsave(recipe.id); recipe.saved = false" ng-src="img/saved.png">
+        <img ng-if="!recipe.saved" ng-click="recipes.save(recipe.id); recipe.saved = true" ng-src="img/unsaved.png">
+        <h2>{{recipe.author}}</h2>
+        <p>{{recipe.createdAt | date: 'short'}}</p>
+      </div>
+
+      <!-- Scanned Document -->
+      <div class="item item-image">
+        <img ng-src="{{recipe.attachment}}">
+      </div>
+
+      <!-- Tags -->
+      <p class="item">
+        <a href ng-repeat="tag in recipe.tags" ng-click="recipes.query.tags = tag" class="subdued">{{tag}}</a>
+      </p>
+    </div>
+
+  </ion-content>
+</ion-view>
